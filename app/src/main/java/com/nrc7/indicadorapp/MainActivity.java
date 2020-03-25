@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements IData {
 
     // Debe ser de alcance de clase para usarlo dentro del notificarValor
     TextView textView;
+    DataSource source;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements IData {
         // API: MiIndicador
 
         // Referencia al DataSource
-        DataSource source = new DataSource(this);
+        source = new DataSource(this);
         // INICIAR EL PROCESO DE LLAMADO A LA API MIINDICADOR
         source.getIndicador("uf", "25-03-2020");
     }
@@ -38,5 +39,11 @@ public class MainActivity extends AppCompatActivity implements IData {
     @Override
     public void notificarValor(String valor) {
         textView.setText(valor);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        source = null;
     }
 }
